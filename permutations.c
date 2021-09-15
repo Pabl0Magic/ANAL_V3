@@ -11,6 +11,7 @@
 
 
 #include "permutations.h"
+#include "stdlib.h"
 
 /***************************************************/
 /* Function: random_num Date:                      */
@@ -27,7 +28,10 @@
 /***************************************************/
 int random_num(int inf, int sup)
 {
-  /* your code */
+  if (sup < inf) {
+    return ERR;
+  }
+  return (int) ((double)(sup-inf+1) * ((double)rand() / (double)RAND_MAX) + inf);
 }
 
 /***************************************************/
