@@ -13,6 +13,29 @@
 #include "permutations.h"
 #include "stdlib.h"
 
+
+/***************************************************/
+/* Function: swap_perm Date: 17/10/2020            */
+/* Authors: Pablo Almarza          */
+/*                                                 */
+/* Rutine that generates a random number           */
+/* between two given numbers                       */
+/*                                                 */
+/* Input:                                          */
+/* int a: first number                             */
+/* int a: second number                            */
+/* Output:                                         */
+/***************************************************/
+void swap_perm (int *a, int *b) {
+
+  int temp;
+  
+  temp = *a;
+  *a = *b;
+  *b = temp;
+  
+}
+
 /***************************************************/
 /* Function: random_num Date:                      */
 /* Authors:                                        */
@@ -49,7 +72,16 @@ int random_num(int inf, int sup)
 /***************************************************/
 int* generate_perm(int N)
 {
-  /* your code */
+  int i, *perm;
+
+  perm = (int*) malloc(N * sizeof(perm[0]));
+  if(perm == NULL) return NULL;
+
+  for(i = 0; i < N; i++) perm[i] = i+1;
+
+  for(i = 0; i < N; i++) swap_perm(&perm[i], &perm[random_num(i, N-1)]);
+
+  return perm;
 }
 
 /***************************************************/
