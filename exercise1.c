@@ -18,6 +18,10 @@
 #include <time.h>
 #include "permutations.h"
 
+/*************************/
+/* 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 */
+/*************************/
+
 int generate_data(int* v, int inf, int sup, int num) {
   FILE *fp;
   int i, j, k;
