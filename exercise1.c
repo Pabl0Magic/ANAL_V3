@@ -18,10 +18,37 @@
 #include <time.h>
 #include "permutations.h"
 
+int generate_data(int* v, int inf, int sup, int num) {
+  FILE *fp;
+  int i, j, k;
+
+  if (!v || inf > sup) {
+    return ERR;
+  }
+
+  fp = fopen("data.txt", "w");
+  for(i = inf; i <= sup; i++) {
+    k = 0;
+    for(j = 0; j < num; j++) {
+      if (i == v[j]) {
+        k++;
+      }
+    }
+
+    fprintf(fp, "%d\t%d\n", i, k);
+  }
+  fclose(fp);
+
+  return OK;
+  
+}
+
 int main(int argc, char** argv)
 {
-  int i;
+  int i, a, k;
   unsigned int inf, sup, num, j;
+  int *v;
+
 
   srand(time(NULL));
 
@@ -51,10 +78,26 @@ int main(int argc, char** argv)
     }
   }
 
-  /* print data */
-  for(j = 0; j < num; j++) { 
-    printf("%d\n", random_num(inf, sup));
+  v = (int*)malloc(num*sizeof(int));
+  if (!v) {
+    return ERR;
   }
+
+  /* print data */
+  for(j = 0, k = 0; j < num; j++, k++) { 
+    a = random_num(inf, sup);
+    printf("%d\n", a);
+
+    v[k] = a;
+  }
+
+  if (generate_data(v, inf, sup, num) == ERR) {
+    fprintf(stderr, "Error generating the histogram file\n");
+    free(v);
+    return -1; 
+  }
+
+  free(v);
 
   return 0;
 }
