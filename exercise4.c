@@ -30,7 +30,7 @@ int main(int argc, char** argv)
     return 0;
   }
   printf("Practice number 1, section 4\n");
-  printf("Done by: your names\n");
+  printf("Done by: Pablo Almarza\n");
   printf("Group: Your group\n");
 
   /* check command line */
@@ -49,6 +49,13 @@ int main(int argc, char** argv)
     exit(-1);
   }
 
+  /*
+  for(j = 0; j < tamano; j++) {
+    printf("%d \t", perm[j]);
+  }
+
+  printf("\n");
+  */
   ret =BubbleSort(perm, 0, tamano-1);
 
   if (ret == ERR) {
@@ -61,7 +68,8 @@ int main(int argc, char** argv)
     printf("%d \t", perm[j]);
   }
   printf("\n");
-
+  printf("%d", ret);
+  printf("\n");
   free(perm);
 
   return 0;
