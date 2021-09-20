@@ -65,7 +65,23 @@ int BubbleSort(int* array, int ip, int iu)
 
 int BubbleSortFlag(int* array, int ip, int iu)
 {
-  /* your code */
+  int i, j, flag, count = 0;
+  if(!array || ip > iu) {
+    return ERR;
+  }
+
+  flag = 1;
+  i = iu;
+
+  while(flag == 1 && i >= ip + 1) {
+    flag = 0;
+    for (j = ip; j <= i - 1; j++) {
+      if(bo(array[j] > array[j+1], &count)) {
+        swap(&array[j], &array[j+1]);
+        flag = 1;
+      }
+    }
+  }
 }
 
 
