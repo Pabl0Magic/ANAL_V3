@@ -101,5 +101,29 @@ int* generate_perm(int N)
 /***************************************************/
 int** generate_permutations(int n_perms, int N)
 {
-/* your code */
+  int i, j, *perm, **perms;
+
+  perms = (int**) malloc(n_perms * sizeof(int*));
+  if (perms == NULL) {
+    return NULL;
+  }
+
+  for(i = 0; i < n_perms; i++) 
+  {
+    /* Safe way to manage errors to prevent memory leaks */
+    perm = generate_perm(N);
+    if(!perm)
+    {
+      /* Optimized to avoid doing N checks*/
+      for(j = 0; j < i; j++)
+      {
+        free(perms[j]);
+      }
+      free(perms);
+      return NULL;
+    }
+    perms[i] = perm;
+  }
+
+  return perms;
 }
