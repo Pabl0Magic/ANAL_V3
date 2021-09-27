@@ -51,10 +51,20 @@ void swap_perm (int *a, int *b) {
 /***************************************************/
 int random_num(int inf, int sup)
 {
-  if (sup < inf) {
-    return ERR;
-  }
-  return (int) ((double)(sup-inf+1) * ((double)rand() / (double)RAND_MAX) + inf);
+  int r;
+  int range = 1 + sup - inf;
+  int buckets = RAND_MAX / range;
+  int limit = buckets * range;
+
+    /* Create equal size buckets all in a row, then fire randomly towards
+     * the buckets until you land in one of them. All buckets are equally
+     * likely. If you land off the end of the line of buckets, try again. */
+    do
+    {
+        r = rand();
+    } while (r >= limit);
+
+    return inf + (r / buckets);
 }
 
 /***************************************************/
