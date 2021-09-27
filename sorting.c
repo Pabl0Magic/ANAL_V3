@@ -82,6 +82,8 @@ int BubbleSortFlag(int* array, int ip, int iu)
       }
     }
   }
+
+  return count;
 }
 
 
