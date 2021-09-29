@@ -53,7 +53,7 @@ int random_num(int inf, int sup)
 {
   int r;
   int range = RAND_MAX / (sup - inf + 1);
-  int limit = range * (1 + sup - inf);
+  int limit = range * (sup - inf + 1);
 
     do
     {

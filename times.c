@@ -17,7 +17,7 @@
 #include "permutations.h"
 
 /***************************************************/
-/* Function: average_sorting_time Date:            */
+/* Function: average_sorting_time Date: 26-09-2021 */
 /*                                                 */
 /* Your documentation                              */
 /***************************************************/
@@ -73,7 +73,7 @@ int* unsortedArray;
 }
 
 /***************************************************/
-/* Function: generate_sorting_times Date:          */
+/* Function:generate_sorting_times Date: 26-09-2021*/
 /*                                                 */
 /* Your documentation                              */
 /***************************************************/
@@ -101,7 +101,7 @@ short generate_sorting_times(pfunc_sort method, char* file,
 }
 
 /***************************************************/
-/* Function: save_time_table Date:                 */
+/* Function: save_time_table Date: 26-09-2021      */
 /*                                                 */
 /* Your documentation                              */
 /***************************************************/
