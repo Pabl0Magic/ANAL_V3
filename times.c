@@ -39,7 +39,9 @@ int* unsortedArray;
     /* Generate a permutation */
     unsortedArray = generate_perm(N);
     if(!unsortedArray) return ERR;
-    
+
+
+     
     /* Check the time before the method is run */
     timeBefore = clock();
     if (timeBefore == -1) {

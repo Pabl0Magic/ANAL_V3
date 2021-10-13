@@ -11,6 +11,7 @@
 
 
 #include "sorting.h"
+#include <stdio.h>
 
 /***************************************************/
 /* Function: bo Date: 17/10/2020                   */
@@ -76,11 +77,13 @@ int BubbleSortFlag(int* array, int ip, int iu)
   while(flag == 1 && i >= ip + 1) {
     flag = 0;
     for (j = ip; j <= i - 1; j++) {
-      if(bo(array[j] > array[j+1], &count)) {
+      count++;
+      if(array[j] > array[j+1]) {
         swap(&array[j], &array[j+1]);
         flag = 1;
       }
     }
+    i--;
   }
 
   return count;
