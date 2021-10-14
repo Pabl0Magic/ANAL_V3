@@ -26,28 +26,62 @@ short average_sorting_time(pfunc_sort metodo,
                               int N, 
                               PTIME_AA ptime)
 {
-int* unsortedArray;
+  int* unsortedArray;
   int ret, i, totalOBs = 0;
   clock_t timeBefore, timeAfter;
+  int flag;
+  /*int j, k, *aux_perm;*/
   ptime->N = N;
   ptime->time = 0;
+  
+  /*
+  aux_perm = (int*)malloc(N*sizeof(int));
+  if (!aux_perm) {
+    return ERR;
+  }*/
+
   if (n_perms < 0) {
-    printf(" Number of perms is less or equal than 0");
+    printf(" Number of perms is equal or less than 0");
     return ERR;
   }
-  for(i = 0; i < n_perms; i++) {
+
+  for(i = 0, flag = 0; i < n_perms; i++, flag ++) {
     /* Generate a permutation */
     unsortedArray = generate_perm(N);
     if(!unsortedArray) return ERR;
 
+    /**
+     * @brief This is for the ideal BubbleSortFlag where the worst case 
+     * is N²/2 - N/2 and the best case is N - 1.
+     * 
+     * To see the results a file PfileFlagIdeal will be created.
+     * 
+     */
+    
+    /* Best case = array sorted */
+    /*if (flag == 0) {
+      for(j = 0, k = 0; j < N; j++, k++) {
+        aux_perm[k] = j;
+      }
+    }*/
 
-     
+    /* Worst case = array reverse sorted */
+    /*if (flag == 1) {
+      for(j = N - 1, k = 0; j > 0; j--, k++) {
+        aux_perm[k] = j;
+      }
+    }*/
+
     /* Check the time before the method is run */
     timeBefore = clock();
     if (timeBefore == -1) {
       return ERR;
     }
+    /*if(flag <= 1) {
+      ret = metodo(aux_perm, 0, N-1);
+    } else {*/
     ret = metodo(unsortedArray, 0, N-1);
+    /*}*/
     /* Fetch the time after the method is run */
     timeAfter = clock();
 
@@ -69,6 +103,8 @@ int* unsortedArray;
       if(ret < ptime->min_ob) ptime->min_ob = ret;
     }
   }
+
+  /*free(aux_perm);*/
 
   ptime->average_ob = (double) totalOBs / (double) n_perms;
   return OK;
@@ -125,5 +161,3 @@ short save_time_table(char* file, PTIME_AA ptime, int n_times)
   fclose(pf);
   return OK;
 }
-
-
