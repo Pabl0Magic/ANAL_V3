@@ -56,7 +56,7 @@ int main(int argc, char** argv)
 
   printf("\n");
   */
-  ret =BubbleSort(perm, 0, tamano-1);
+  ret = MergeSort(perm, 0, tamano-1);
 
   if (ret == ERR) {
     printf("Error: Error in BubbleSort\n");
