@@ -247,7 +247,7 @@ int QuickSort(int* tabla, int ip, int iu) {
 }
 
 int QuickSort_ntr(int* table, int ip, int iu) {
-  int pos = 1, count = 1;
+  int pos = 1, count = 0;
 
   if (table == NULL || ip < 0 || iu < ip) {
     return ERR;
