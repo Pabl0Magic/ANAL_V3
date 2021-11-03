@@ -28,5 +28,6 @@ int BubbleSort(int* array, int ip, int iu);
 int BubbleSortFlag(int* array, int ip, int iu);
 int MergeSort(int* tabla, int ip, int iu);
 int QuickSort(int* tabla, int ip, int iu);
+int QuickSort_ntr (int* table, int ip, int iu);
 
 #endif

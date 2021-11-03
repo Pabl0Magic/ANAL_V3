@@ -154,8 +154,12 @@ int merge(int* tabla, int ip, int iu, int medio) {
 int MergeSort(int* tabla, int ip, int iu) {
   int medio = ip + (iu - ip) / 2, auxCount = 0, count = 0;
 
-  if (!tabla || ip >= iu) {
+  if (!tabla || ip > iu) {
     return ERR;
+  }
+
+  if( ip == iu) {
+    return OK;
   }
 
   auxCount = MergeSort(tabla, ip, medio);
@@ -219,7 +223,7 @@ int QuickSort(int* tabla, int ip, int iu) {
   int auxCount;
 
 
-  if(!tabla || ip >= iu) return ERR;
+  if(!tabla || ip > iu) return ERR;
 
   auxCount = split(tabla, ip, iu, &pos);
   if(auxCount == ERR) return ERR;
@@ -240,4 +244,29 @@ int QuickSort(int* tabla, int ip, int iu) {
   }
 
   return count;
+}
+
+int QuickSort_ntr(int* table, int ip, int iu) {
+  int pos = 1, count = 1;
+
+  if (table == NULL || ip < 0 || iu < ip) {
+    return ERR;
+  }
+
+  while (ip < iu) {
+
+    count += split(table, ip, iu, &pos);
+    if (count == ERR)return ERR;
+
+    if(pos - ip < iu - pos) {
+      QuickSort_ntr(table, ip, pos - 1);
+      ip = pos + 1;
+    } else {
+      QuickSort_ntr(table, ip, iu);
+      iu = pos - 1;
+    }
+  }
+
+  return count;
+
 }
