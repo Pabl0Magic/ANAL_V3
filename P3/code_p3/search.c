@@ -147,17 +147,68 @@ int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
 /* Search functions of the Dictionary ADT */
 int bin_search(int *table,int F,int L,int key, int *ppos)
 {
-	/* your code */
+	int M, count = 0;
+  if(!table || F > L || F < 0) return ERR;
+
+
+  while(F <= L){  
+    M = (L+F)/2;
+    count++;
+    if(table[M] == key){
+      *ppos = M;
+      return count;
+    }
+    else if(table[M] > key){
+      L = M-1;
+    }
+    else{
+      F = M+1;
+    }
+  }
+  *ppos = NOT_FOUND;
+    
+  return count;
 }
 
 int lin_search(int *table,int F,int L,int key, int *ppos)
 {
-	/* your code */
+	int count = 0, i;
+  
+  if(!table || F > L || F < 0 || !ppos) return ERR;
+  
+  for(i=F ; i <= L ; i++){
+    count++;
+    if(table[i] == key){
+      *ppos=i;
+      return count;
+    }
+  }
+
+  *ppos = NOT_FOUND;
+  return count;
 }
 
 int lin_auto_search(int *table,int F,int L,int key, int *ppos)
 {
-	/* your code */
+	int count = 0, i;
+
+  if(!table || F > L || F < 0 || !ppos) return ERR;
+
+  for(i = F ; i <= L ; i++){
+    count++;
+    if(table[i] == key){
+      if(i != F){
+        swap(&table[i], &table[i-1]);
+        i--;
+      }
+      
+      *ppos=i;
+      return count;
+    }
+  }
+
+  *ppos = NOT_FOUND;
+  return count;
 }
 
 
