@@ -10,8 +10,9 @@
  */
 
 #include "search.h"
-
+#include "sorting.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
 
 /**
@@ -138,9 +139,16 @@ int massive_insertion_dictionary (PDICT pdict, int *keys, int n_keys)
 
 int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
 {
+  int i;
 	if(!pdict || !method || !ppos || key < 0) return ERR;
 
-  return method(pdict->table, 0, pdict->n_data-1, key, ppos);
+  i = method(pdict->table, 0, pdict->n_data-1, key, ppos);
+
+  if (*ppos == NOT_FOUND) {
+    return NOT_FOUND;
+  } else {
+    return i;
+  }
 }
 
 
