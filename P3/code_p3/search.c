@@ -58,27 +58,89 @@ void potential_key_generator(int *keys, int n_keys, int max)
 
 PDICT init_dictionary (int size, char order)
 {
-	/* your code */
+	PDICT pdict=NULL;
+  if(size < 1 || (order != SORTED && order != NOT_SORTED)) {
+    return NULL;
+  }
+  
+  pdict=(PDICT)malloc(sizeof(DICT));
+  if(!pdict) {
+    return NULL;
+  }
+  
+  pdict->table = NULL;
+  
+  pdict->table = (int*)malloc(sizeof(int)*size);
+  if(!pdict->table) {
+    free_dictionary(pdict);
+    return NULL;
+  }
+
+  pdict->size = size;
+  pdict->n_data = 0;
+  pdict->order = order;
+  
+  return pdict;
 }
 
 void free_dictionary(PDICT pdict)
 {
-	/* your code */
+	if(!pdict) return;
+
+  if(pdict->table!=NULL) {
+    free(pdict->table);
+  }
+  free(pdict);
 }
 
 int insert_dictionary(PDICT pdict, int key)
 {
-	/* your code */
+	int A, j = 0, count = 0;
+
+  if(!pdict || pdict->size == pdict->n_data) return ERR;
+
+  pdict->table[pdict->n_data] = key;
+  
+  if(pdict->order==SORTED && pdict->n_data > 0){
+    A = pdict->table[pdict->n_data];
+    j = pdict->n_data - 1;
+
+    while (j >= 0 && pdict->table[j] > A){
+      pdict->table[j+1] = pdict->table[j];
+      j--;
+      count++;
+    }
+
+    if(j >= 0){
+      count++;
+    }
+    pdict->table[j+1] = A;
+  }
+
+  pdict->n_data++;
+  return count;
 }
 
-int massive_insertion_dictionary (PDICT pdict,int *keys, int n_keys)
+int massive_insertion_dictionary (PDICT pdict, int *keys, int n_keys)
 {
-	/* your code */
+	int count = 0, i, aux;
+
+	if(!pdict || !keys || n_keys<1 || (pdict->size - pdict->n_data) < n_keys) return ERR;
+  
+  for(i = 0 ; i < n_keys ; i++){
+    if((aux = insert_dictionary(pdict, keys[i])) == ERR) {
+      return ERR;
+    }
+    count += aux;
+  }
+  return count;
 }
 
 int search_dictionary(PDICT pdict, int key, int *ppos, pfunc_search method)
 {
-	/* your code */
+	if(!pdict || !method || !ppos || key < 0) return ERR;
+
+  return method(pdict->table, 0, pdict->n_data-1, key, ppos);
 }
 
 
