@@ -133,3 +133,29 @@ int** generate_permutations(int n_perms, int N)
 
   return perms;
 }
+
+/*
+InsertSort:
+    B(N): O(N) (Sorted array)
+    W(N): O(N²) (Reverse-sorted array)
+    A(N): O(N²)
+  
+  QuickSort:
+    B(N): O(N*log N) (Everytime list of half size)
+    W(N): O(N²) (Pivot is the smallest or the largest everytime of the recursion)
+    A(N): O(N*log N)
+      
+  MergeSort:
+    B(N): O(N*log N) 
+    W(N): O(N*log N)
+    A(N): O(N*log N)
+  BSearch:
+    B(N): O(1) = 1
+    W(N): O(log N)
+    A(N): O(log N)
+  
+  LSearch:
+    B(N): O(1) = 1
+    W(N): O(N)
+    A(N): O(N) 
+*/

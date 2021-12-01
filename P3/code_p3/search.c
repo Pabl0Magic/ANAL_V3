@@ -64,7 +64,7 @@ PDICT init_dictionary (int size, char order)
     return NULL;
   }
   
-  pdict=(PDICT)malloc(sizeof(DICT));
+  pdict = (PDICT)malloc(sizeof(DICT));
   if(!pdict) {
     return NULL;
   }
@@ -162,7 +162,7 @@ int bin_search(int *table,int F,int L,int key, int *ppos)
   while(F <= L){  
     M = (L+F)/2;
     count++;
-    if(table[M] == key){
+    if( ){
       *ppos = M;
       return count;
     }
