@@ -210,8 +210,9 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator,
   generator(keys, n_times * N, N);
   
 
-  begin=clock();
+  
   for(i = 0; i < N * n_times; i++){
+    begin=clock();
     aux = search_dictionary(pdict, keys[i], &ppos, metodo);
     if(aux == ERR || ppos == NOT_FOUND){
       free_dictionary(pdict);
@@ -219,7 +220,10 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator,
       free(keys);
       return ERR;
     }
-    
+    end=clock();
+
+    time += (double)(end-begin)/(double)CLOCKS_PER_SEC;
+
     if(aux < ptime->min_ob || ptime->min_ob == 0) {
       ptime->min_ob = aux;
     }
@@ -230,12 +234,15 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator,
 
     n_ob+=aux;
   }
-  end=clock();
+  
 
-  time = (double)(end-begin)/CLOCKS_PER_SEC;
+  
   time = time/(N*n_times);
 
   ptime->time = time;
+  if (n_ob < 0) {
+    n_ob = n_ob * (-1);
+  }
   ptime->average_ob = (double)(n_ob)/(N*n_times);
   ptime->N = N;
   ptime->n_elems = N * n_times;

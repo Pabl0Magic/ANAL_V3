@@ -162,7 +162,7 @@ int bin_search(int *table,int F,int L,int key, int *ppos)
   while(F <= L){  
     M = (L+F)/2;
     count++;
-    if( ){
+    if(table[M] == key){
       *ppos = M;
       return count;
     }
@@ -202,17 +202,15 @@ int lin_auto_search(int *table,int F,int L,int key, int *ppos)
 
   if(!table || F > L || F < 0 || !ppos) return ERR;
 
-  for(i = F ; i <= L ; i++){
+  for(i = F ; i < L ; i++){
     count++;
-    if(table[i] == key){
-      if(i != F){
-        swap(&table[i], &table[i-1]);
-        i--;
+    if (i == F) {
+        *ppos = i;
+        return 1;
       }
-      
-      *ppos=i;
-      return count;
-    }
+      swap(&table[i], &table[i - 1]);
+      *ppos = i - 1;
+      return i - F + 1;
   }
 
   *ppos = NOT_FOUND;
