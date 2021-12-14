@@ -166,9 +166,8 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator,
                               int n_times,
                               PTIME_AA ptime)
 {
-  int i=0, *perm=NULL, *keys=NULL, ppos=0, aux=0, n_ob=0;
+  int i = 0, *perm = NULL, *keys=NULL, ppos = 0, aux = 0, n_ob = 0;
   clock_t begin, end;
-  double time;
   PDICT pdict=NULL;
 
   if(!metodo|| !generator || !ptime || N <= 0 || n_times < 0 || (order != NOT_SORTED && order != SORTED)) return ERR;
@@ -210,9 +209,8 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator,
   generator(keys, n_times * N, N);
   
 
-  
+  begin=clock();
   for(i = 0; i < N * n_times; i++){
-    begin=clock();
     aux = search_dictionary(pdict, keys[i], &ppos, metodo);
     if(aux == ERR || ppos == NOT_FOUND){
       free_dictionary(pdict);
@@ -220,9 +218,8 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator,
       free(keys);
       return ERR;
     }
-    end=clock();
-
-    time += (double)(end-begin)/(double)CLOCKS_PER_SEC;
+    
+    n_ob += aux;
 
     if(aux < ptime->min_ob || ptime->min_ob == 0) {
       ptime->min_ob = aux;
@@ -232,17 +229,14 @@ short average_search_time(pfunc_search metodo, pfunc_key_generator generator,
       ptime->max_ob = aux;
     }
 
-    n_ob+=aux;
+    
   }
-  
+  end=clock();
 
   
-  time = time/(N*n_times);
+  
 
-  ptime->time = time;
-  if (n_ob < 0) {
-    n_ob = n_ob * (-1);
-  }
+  ptime->time = (double)(end - begin)/(double)CLOCKS_PER_SEC;
   ptime->average_ob = (double)(n_ob)/(N*n_times);
   ptime->N = N;
   ptime->n_elems = N * n_times;

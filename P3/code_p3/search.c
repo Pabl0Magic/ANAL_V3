@@ -200,20 +200,25 @@ int lin_auto_search(int *table,int F,int L,int key, int *ppos)
 {
 	int count = 0, i;
 
-  if(!table || F > L || F < 0 || !ppos) return ERR;
-
-  for(i = F ; i < L ; i++){
-    count++;
-    if (i == F) {
-        *ppos = i;
-        return 1;
-      }
-      swap(&table[i], &table[i - 1]);
-      *ppos = i - 1;
-      return i - F + 1;
+  if(!table || F > L || F < 0 || !ppos) {
+    printf("FUCK YOU\n");
+    return ERR;
   }
 
-  *ppos = NOT_FOUND;
+  for(i = F ; i <= L ; i++){
+    count++;
+    if(table[i] == key){
+      if(i != F){
+        swap(&table[i], &table[i-1]);
+        i--;
+      }
+      
+      *ppos=i;
+      return count;
+    }
+  }
+
+  *ppos=NOT_FOUND;
   return count;
 }
 
