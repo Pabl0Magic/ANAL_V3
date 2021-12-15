@@ -201,7 +201,6 @@ int lin_auto_search(int *table,int F,int L,int key, int *ppos)
 	int count = 0, i;
 
   if(!table || F > L || F < 0 || !ppos) {
-    printf("FUCK YOU\n");
     return ERR;
   }
 
